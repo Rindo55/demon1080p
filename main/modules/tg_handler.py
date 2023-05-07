@@ -172,48 +172,16 @@ async def start_uploading(data):
         subtitle = subtitle.replace("HRV", "Croatian")
         subtitle = subtitle.replace("HUN", "Hungarian")
         subtitle = subtitle.replace("UKR", "Ukranian")
-        main = await app.send_photo(KAYO_ID,photo=img,caption=caption)
-        guessname = f"**{ghostname}**" + "\n" + f"__({tit})__" + "\n" + "━━━━━━━━━━━━━━━━━━━" + "\n" + "✓  `1080p x264 Web-DL`" + "\n" + f"✓  `{subtitle} ~ Subs`" + "\n" + "#Source #WebDL"
-        
-        thumbnail = await generate_thumbnail(id,file)
-
-        videox = await app.send_document(
-
-                DATABASE_ID,
-
-            document=file,
-            
-            caption=guessname,
-
-            file_name=filed,
-
-            force_document=True,
-                        
-            thumb=thumbnail
-
-            )   
-        os.rename(file, fpath)
-        sourcefileid = str(videox.message_id)
-        source_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(sourcefileid)}"
-        com_id = int(main.message_id) + 1
-        encom_id = int(main.message_id) + 2
-        comment = f"t.me/c/{uj_id}/{com_id}?thread={com_id}"
-        encomment = f"t.me/c/{uj_id}/{encom_id}?thread={encom_id}"
-        repl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                                                              "🐌TG FILE", url=source_link)]])
-        enrepl_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                                                              "💬Comments", url=encomment)]])
-        orgtext =  "**#Source_File**" + "\n" + f"**‣ File Name: `{filed}`**" + "\n" + "**‣ Video**: `1080p x264`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `{subtitle}`" + "\n" + f"**‣ File Size**: `{nyaasize}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({source_link})"
-        await asyncio.sleep(5)
-        untextx = await main.reply_text(orgtext)
-        await asyncio.sleep(3)
-        unitext = await untextx.edit(orgtext, reply_markup=repl_markup)
-        await asyncio.sleep(5)
-        sourcetext =  f"**#Encoded_File**" + "\n" + f"**‣ File Name**: `{razo}`" + "\n" + "**‣ Video**: `720p HEVC x265 10Bit`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `{subtitle}`"
-        untext = await main.reply_text(sourcetext)
+        DEMON_ID = 29755
+        sourcetext =  f"**#Encoded_File**" + "\n" + f"**‣ File Name**: `{razo}`" + "\n" + "**‣ Video**: `1080p HEVC x265 10Bit`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `{subtitle}`"
+        await client.send_message(
+                    chat_id=KAYO_ID,
+                    text=sourcetext,
+                   reply_to_message_id=DEMON_ID
+                   )
         await asyncio.sleep(2)
         await app.send_sticker(KAYO_ID,"CAACAgUAAxkBAAEU_9FkRrLoli952oqIMVFPftW12xYLRwACGgADQ3PJEsT69_t2KrvBLwQ")
-        os.rename(fpath,"video.mkv")
+        os.rename(file,"video.mkv")
         await asyncio.sleep(5)
         compressed = await compress_video(duration,untext,name,sourcetext)
         
