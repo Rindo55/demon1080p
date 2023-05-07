@@ -120,7 +120,6 @@ async def start_uploading(data):
 
         print("Downloading --> ",name)
         await asyncio.sleep(5)
-        await status.edit(await status_text(f"Downloading {name}"),reply_markup=button1)
 
         file = await downloader(msg,link,size,title)
 
@@ -187,7 +186,6 @@ async def start_uploading(data):
         
         dingdong = await untext.edit(sourcetext)
 
-
         if compressed == "None" or compressed == None:
 
             print("Encoding Failed Uploading The Original File")
@@ -200,7 +198,6 @@ async def start_uploading(data):
   
         print("Uploading --> ",name)
 
-        await status.edit(await status_text(f"Uploading {name }"),reply_markup=button1)
         video = await upload_video(msg,fpath,id,tit,name,size,sourcetext,untext,subtitle,nyaasize) 
         try:
 
