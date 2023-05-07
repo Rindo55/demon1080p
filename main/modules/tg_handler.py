@@ -126,8 +126,6 @@ async def start_uploading(data):
         await msg.edit(f"Download Complete : {name}")
         print("Encoding --> ",name)
 
-        await status.edit(await status_text(f"Encoding {name}"),reply_markup=button1)
-
         duration = get_duration(file)
         durationx = get_durationx(file)
         filed = os.path.basename(file)
@@ -176,7 +174,7 @@ async def start_uploading(data):
         await client.send_message(
                     chat_id=KAYO_ID,
                     text=sourcetext,
-                   reply_to_message_id=DEMON_ID
+                    reply_to_message_id=DEMON_ID
                    )
         await asyncio.sleep(2)
         await app.send_sticker(KAYO_ID,"CAACAgUAAxkBAAEU_9FkRrLoli952oqIMVFPftW12xYLRwACGgADQ3PJEsT69_t2KrvBLwQ")
