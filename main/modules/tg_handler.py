@@ -171,7 +171,7 @@ async def start_uploading(data):
         subtitle = subtitle.replace("UKR", "Ukranian")
         DEMON_ID = 29755
         sourcetext =  f"**#Encoded_File**" + "\n" + f"**‣ File Name**: `{razo}`" + "\n" + "**‣ Video**: `1080p HEVC x265 10Bit`" + "\n" + "**‣ Audio**: `Japanese`" + "\n" + f"**‣ Subtitle**: `{subtitle}`"
-        await client.send_message(
+        await app.send_message(
                     chat_id=KAYO_ID,
                     text=sourcetext,
                     reply_to_message_id=DEMON_ID
