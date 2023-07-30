@@ -195,12 +195,4 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,subti
 
     return x.message_id
 
-            os.remove(file)
-
-            os.remove(thumbnail)
-
-    except:
-
-        pass
-
-    return x.message_id
+            
