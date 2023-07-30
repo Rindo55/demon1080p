@@ -81,49 +81,119 @@ async def upload_video(msg: Message,file,id,tit,name,ttl,sourcetext,untext,subti
             )
             os.rename(file,fukpath)
             server = requests.get(url="https://api.gofile.io/getServer").json()["data"]["server"]
+
             uploadxz = requests.post(url=f"https://{server}.gofile.io/uploadFile", files={"upload_file": open(fukpath, 'rb')}).json()
-            directlink = uploadxz["data"]["downloadPage"]    
-            gotn_url = f"https://tnlinks.in/api?api=1458ad61946fd6f5b8a93161c9cfd94733813566&url={directlink}&format=text"
-            gofinal = requests.get(gotn_url)
-            go_text = gofinal.text
-            gourl = go_text
+
+            directlink = uploadxz["data"]["downloadPage"]
+
             da_url = "https://da.gd/"
-            gofile_url = f"{da_url}shorten"
-            goresponse = requests.get(gofile_url, params={"url": gourl})
-            gofuk_text = goresponse.text.strip()
+
+            gotn_urlx = f"https://tnshort.net/api?api=fea911843f6e7bec739708f3e562b56184342089&url={directlink}&format=text"
+
+            gofinalx = requests.get(gotn_urlx)
+
+            go_textx = gofinalx.text
+
+            gourlx = go_textx
+
+            gofile_urlx = f"{da_url}shorten"
+
+            goresponsex = requests.get(gofile_urlx, params={"url": gourlx})
+
+            gofuk_textx = goresponsex.text.strip()
+            repz = pixeldrain.upload_file(fukpath)
+            if repz["success"]:              
+                datax = pixeldrain.info(repz["id"])   
+            else:
+                print("Failed!")
+            ddl = f"https://pixeldrain.com/api/file/{datax['id']}"
+            pxtn_urlx = f"https://tnshort.net/api?api=fea911843f6e7bec739708f3e562b56184342089&url={ddl}&format=text"
+
+            pxfinalx = requests.get(pxtn_urlx)
+
+            px_textx = pxfinalx.text
+
+            pxurlx = px_textx
+
+            pxfile_urlx = f"{da_url}shorten"
+
+            pxresponsex = requests.get(pxfile_urlx, params={"url": pxurlx})
+
+            pxfuk_textx = pxresponsex.text.strip()
+ 
             file_er_id = str(x.message_id)
-            share_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(file_er_id)}"
+
+            share_link = f"https://telegram.me/somayukibot?start=animxt_{str_to_b64(file_er_id)}"            
+
             enshare_link = f"https://tnlinks.in/api?api=1458ad61946fd6f5b8a93161c9cfd94733813566&url={share_link}&format=text"
+
             fukshare = requests.get(enshare_link)
+
             tshare = fukshare.text
+
             cshare = tshare
+
             xshare_url = f"{da_url}shorten"
+
             tgshare = requests.get(xshare_url, params={"url": cshare})
+
             teleshare = tgshare.text.strip()            
-            come_id = int(untext.message_id)
-            come_link = f"t.me/c/{gay_id}/{come_id}?thread={come_id}"
+
             repl_markup=InlineKeyboardMarkup(
+
                 [
+
                     [
+
                          InlineKeyboardButton(
+
                             text="🐌TG FILE",
+
                             url=teleshare,
+
                         ),
+
                          InlineKeyboardButton(
+
                               text="🚀GoFile",
-                              url=gofuk_text,
+
+                              url=gofuk_textx,
+
+                        ),
+  
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="🚀Pixeldrain",
+                            url=pxfuk_textx,
                         ),
                     ],
                 ],
             )
-            encodetext =  f"{sourcetext}" "\n" + f"**‣ File Size**: `{size}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({teleshare}) [🔗Gofile]({gofuk_text})"
+
+            encodetext =  f"{sourcetext}" "\n" + f"**‣ File Size**: `{size}`" + "\n" + f"**‣ Duration**: {durationx}" + "\n" + f"**‣ Downloads**: [🔗Telegram File]({teleshare}) [🔗Gofile]({gofuk_textx}) [🔗Pixeldrain]({pxfuk_textx})"
+
             await asyncio.sleep(5)
-            entext = await untext.edit(encodetext, reply_markup=repl_markup)
+
+            entext = await untext.edit(encodetext, disable_web_page_preview=True, reply_markup=repl_markup)
+
     except Exception:
+
             await app.send_message(kayo_id, text="Something Went Wrong!")
+
     try:
 
             await r.delete()
+
+            os.remove(file)
+
+            os.remove(thumbnail)
+
+    except:
+
+        pass
+
+    return x.message_id
 
             os.remove(file)
 
